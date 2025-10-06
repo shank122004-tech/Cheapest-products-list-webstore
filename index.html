@@ -27,7 +27,7 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.03);
   backdrop-filter: blur(6px);
 }
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .brand-badge {
   background: linear-gradient(90deg, var(--gold), var(--gold-2));
   color: #071117;
@@ -39,6 +39,7 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 28px rgba(212,175,55,0.12), inset 0 -4px 8px rgba(0,0,0,0.12);
+  flex-shrink: 0;
 }
 .cat-btn {
   padding: 8px 12px;
@@ -48,6 +49,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all .2s;
+  flex-shrink: 0;
 }
 .cat-btn.active {
   background: rgba(212,175,55,0.12);
@@ -62,13 +64,14 @@ body {
   transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
 }
 .product-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 24px 60px rgba(2,6,23,0.6);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(2,6,23,0.5);
 }
 .product-image img {
   width: 100%;
-  height: 220px;
+  height: 180px;
   object-fit: cover;
+  border-radius: 10px;
 }
 .social-btn {
   padding: 6px 10px;
@@ -76,13 +79,13 @@ body {
   color: #fff;
   font-weight: 700;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12px;
 }
 .ig { background: #E1306C; }
 .fb { background: #1877F2; }
 footer {
-  max-width: 1100px;
-  margin: 40px auto;
+  max-width: 100%;
+  margin: 20px auto;
   padding: 18px;
   color: #b6c1cf;
   font-size: 14px;
@@ -96,13 +99,12 @@ footer {
 }
 .floating-diwali {
   position: fixed;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   animation: floatUp 6s linear infinite;
   z-index: 30;
 }
 .home-btn {
-  margin-left: 20px;
   padding: 6px 12px;
   border-radius: 8px;
   background: var(--gold);
@@ -117,10 +119,10 @@ footer {
 .banner-slider {
   position: relative;
   overflow: hidden;
-  max-width: 1100px;
-  margin: 20px auto;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  max-width: 100%;
+  margin: 16px auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
 }
 .banner-track {
   display: flex;
@@ -128,10 +130,19 @@ footer {
 }
 .banner-track img {
   width: 100%;
-  max-height: 220px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 10px;
   flex-shrink: 0;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 640px){
+  .product-card { min-width: 100%; }
+  .site-header .brand { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .site-header input { margin-top: 8px; }
+  nav { justify-content: start; padding: 8px; }
+  .banner-track img { height: 150px; }
 }
 </style>
 </head>
@@ -147,22 +158,21 @@ footer {
 <header class="site-header">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
     <div class="brand">
-  <div class="brand-badge">
-    <img src="c:\Users\Lenovo\Downloads\Cheapest products list.png" alt="MyMeeshoStore Logo" style="width:100%; height:100%; object-fit:contain; border-radius:10px;">
-  </div>
-  <div>
-    <div style="font-weight:800; font-size:18px;">MyMeeshoStore</div>
-    <div style="font-size:12px; color:#b9c4d6;">Premium Affiliate Collection</div>
-  </div>
-  <button class="home-btn" onclick="scrollToTop()">Home</button>
-</div>
-
-    <div style="flex:1; margin-left:18px;">
+      <div class="brand-badge">
+        <img src="c:\Users\Lenovo\Downloads\Cheapest products list.png" alt="Logo" style="width:100%; height:100%; object-fit:contain;">
+      </div>
+      <div>
+        <div style="font-weight:800; font-size:18px;">MyMeeshoStore</div>
+        <div style="font-size:12px; color:#b9c4d6;">Premium Affiliate Collection</div>
+      </div>
+      <button class="home-btn" onclick="scrollToTop()">Home</button>
+    </div>
+    <div style="flex:1; margin-left:12px;">
       <input id="searchInput" class="w-full rounded-full px-4 py-2 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.03)] placeholder:text-slate-400" placeholder="Search products" />
     </div>
   </div>
 
-  <nav style="max-width:1100px; margin:8px auto 0; padding:10px 16px; display:flex; gap:8px; overflow:auto;">
+  <nav style="max-width:100%; margin:8px auto 0; padding:8px; display:flex; gap:6px; overflow-x:auto;">
     <button class="cat-btn active" data-cat="all">All</button>
     <button class="cat-btn" data-cat="mens-fashion">Men's</button>
     <button class="cat-btn" data-cat="womens-fashion">Women's</button>
@@ -180,8 +190,8 @@ footer {
   </div>
 </section>
 
-<main class="max-w-6xl mx-auto px-4 py-8">
-  <section id="product-list" class="grid gap-6 mt-8" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr));"></section>
+<main class="max-w-6xl mx-auto px-4 py-6">
+  <section id="product-list" class="grid gap-4 mt-6" style="grid-template-columns: repeat(auto-fit, minmax(180px,1fr));"></section>
 </main>
 
 <footer>
@@ -197,10 +207,10 @@ function scrollToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
 
 // Products
 const products=[
-{id:1,name:"Men's T-Shirt",price:"₹499",img:"https://images.meesho.com/images/products/101.jpg",instagram:"#",facebook:"#",category:"mens-fashion"},
-{id:2,name:"Women Kurti",price:"₹599",img:"https://images.meesho.com/images/products/102.jpg",instagram:"#",facebook:"#",category:"womens-fashion"},
-{id:3,name:"Home Lamp",price:"₹450",img:"https://images.meesho.com/images/products/103.jpg",instagram:"#",facebook:"#",category:"home-kitchen"},
-{id:4,name:"Kids Shoes",price:"₹350",img:"https://images.meesho.com/images/products/104.jpg",instagram:"#",facebook:"#",category:"kids"}
+{id:1,name:"Men's T-Shirt",price:"₹499",img:"https://images.meesho.com/images/products/101.jpg",instagram:"https://www.instagram.com/_shashank__shrivastava_/",facebook:"#",category:"mens-fashion"},
+{id:2,name:"Women Kurti",price:"₹599",img:"https://images.meesho.com/images/products/102.jpg",instagram:"https://www.instagram.com/_shashank__shrivastava_/",facebook:"#",category:"womens-fashion"},
+{id:3,name:"Home Lamp",price:"₹450",img:"https://images.meesho.com/images/products/103.jpg",instagram:"https://www.instagram.com/_shashank__shrivastava_/",facebook:"#",category:"home-kitchen"},
+{id:4,name:"Kids Shoes",price:"₹350",img:"https://images.meesho.com/images/products/104.jpg",instagram:"https://www.instagram.com/_shashank__shrivastava_/",facebook:"#",category:"kids"}
 ];
 const productList=document.getElementById('product-list');
 function render(list){
@@ -209,14 +219,14 @@ function render(list){
     const card=document.createElement('div');
     card.className='product-card';
     card.innerHTML=`<div class="product-image"><img src="${p.img}" alt="${p.name}" /></div>
-    <div style="padding:12px;">
+    <div style="padding:10px;">
       <div style="font-size:12px;color:#9fb0c6;">${p.category.replace('-', ' ')}</div>
-      <h3 style="font-weight:800;margin-top:6px;">${p.name}</h3>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">
+      <h3 style="font-weight:800;margin-top:4px;">${p.name}</h3>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px; flex-wrap:wrap;">
         <div style="font-weight:900;color:var(--gold);">${p.price}</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div style="display:flex;gap:6px; flex-wrap:wrap;">
           <a class="social-btn ig" href="${p.instagram}" target="_blank">Instagram</a>
-          <a class="social-btn fb" href="${p.facebook}" target="_blank">Facebook Group</a>
+          <a class="social-btn fb" href="${p.facebook}" target="_blank">Facebook</a>
         </div>
       </div>
     </div>`;
@@ -275,12 +285,8 @@ function touchMove(e){
 function touchEnd(e){
   isDragging = false;
   const movedBy = e.changedTouches[0].clientX - startX;
-  if(movedBy < -50){
-    index = Math.min(index + 1, track.children.length -1);
-  }
-  if(movedBy > 50){
-    index = Math.max(index -1, 0);
-  }
+  if(movedBy < -50){ index = Math.min(index + 1, track.children.length -1); }
+  if(movedBy > 50){ index = Math.max(index -1, 0); }
   track.style.transform = `translateX(-${index * 100}%)`;
   autoSlide = setInterval(slideBanner, 4000);
 }
